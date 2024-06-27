@@ -17,6 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
+// app.get("/testget", (req, res)=>{res.status(200).json({Request:"Received"})});
+// app.post("/testpost", (req, res)=>{res.status(200).json({Response:"Received"})});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
