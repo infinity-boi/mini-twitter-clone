@@ -86,19 +86,22 @@ export const commentOnPost = async (req, res) => {
 export const likeUnlikePost = async (req, res) => {
     try {
         const userId = req.user._id;
-        const postId = req.params.id;
+        const {id: postId} = req.params;
         const post = await Post.findById(postId);
 
         if(!post) {
             return res.status(404).json({error: "Post not found"});
         }
 
-        if(post.likes.includes(userId)){
+        const userLikedPost = post.likes.includes(userId);
+
+        if(userLikedPost){
             // var idx = post.likes.indexOf(userId);
             // post.likes.splice(idx, 1);
             await Post.updateOne({_id: postId}, {$pull: {likes : userId}});
             await User.updateOne({_id: userId}, {$pull: {likedPosts: postId}});
-            return res.status(200).json({message: "Post unliked successfully"});
+            const updatedLikes = post.likes.filter((id) => id.toString() !== userId.toString());
+			res.status(200).json(updatedLikes);
         }
         else{
             post.likes.push(userId);
@@ -108,10 +111,11 @@ export const likeUnlikePost = async (req, res) => {
                 from: userId,
                 to: post.user,
                 type: "like"
-            })
+            });
             await notification.save();
 
-            return res.status(200).json({message: "Post liked successfully"});
+            const updatedLikes = post.likes;
+			res.status(200).json(updatedLikes);
         }
     }
     catch (error){
