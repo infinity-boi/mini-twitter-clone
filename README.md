@@ -3,7 +3,7 @@
 
 - Screenshots:
 
-![Alt text](guide/Screenshot 2024-08-24 223612.png)
-![Alt text](guide/Screenshot 2024-08-24 223630.png)
-![Alt text](guide/Screenshot 2024-08-24 223643.png)
-![Alt text](guide/Screenshot 2024-08-24 223718.png)
+![Alt text](guide/login.png)
+![Alt text](guide/home.png)
+![Alt text](guide/notify.png)
+![Alt text](guide/profile.png)
